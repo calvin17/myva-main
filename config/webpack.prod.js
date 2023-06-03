@@ -15,8 +15,8 @@ const prodConfig = {
     new ModuleFederationPlugin({
       name: 'myva_container',
       remotes: {
-        todo: `myva_todo@${domain}/myva_todo/remoteEntry.js`,
-        cricket: `myva_cricket@${domain}/myva_cricket/remoteEntry.js`,
+        todo: `myva_todo@${domain}/myva_todo/latest/remoteEntry.js`,
+        cricket: `myva_cricket@${domain}/myva_cricket/latest/remoteEntry.js`,
       },
       shared: packageJson.dependencies,
     }),
