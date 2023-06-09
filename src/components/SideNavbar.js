@@ -11,8 +11,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import AddTaskIcon from '@mui/icons-material/AddTask';
+import HomeIcon from '@mui/icons-material/Home';
+import SportsCricketIcon from '@mui/icons-material/SportsCricket';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
 const drawerWidth = 240;
 
@@ -65,33 +67,43 @@ const sideNavLinks = [
   {
     name: 'Home',
     link: '/',
+    icon: <HomeIcon />,
   },
   {
-    name: 'Todo',
+    name: 'Task Manager',
     link: '/todo',
+    icon: <AddTaskIcon />,
   },
   {
-    name: 'Cricket',
+    name: 'Cricket Info',
     link: '/cricket',
+    icon: <SportsCricketIcon />,
   },
   {
     name: 'Expanse Tracker',
     link: '/expanseTracker',
+    icon: <AccountBalanceWalletIcon />,
   },
 ];
 
-export default () => {
-  const [open, setOpen] = React.useState(true);
+export default ({ open, setOpen, toggleDrawer }) => {
   const theme = useTheme();
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
 
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
   return (
-    <Drawer variant="permanent" open={true}>
+    <Drawer
+      variant="permanent"
+      open={open}
+      PaperProps={{
+        sx: {
+          background: 'linear-gradient(to right bottom, #4e73df, #5c6bc0)',
+          color: '#f8f9fc',
+        },
+      }}
+    >
       <DrawerHeader>
         <IconButton onClick={handleDrawerClose}>
           {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
@@ -99,7 +111,7 @@ export default () => {
       </DrawerHeader>
       <Divider />
       <List>
-        {sideNavLinks.map(({ name, link }, index) => (
+        {sideNavLinks.map(({ name, link, icon }, index) => (
           <ListItem key={name} disablePadding sx={{ display: 'block' }}>
             <ListItemButton
               sx={{
@@ -118,7 +130,7 @@ export default () => {
                 }}
                 component={Link}
               >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {icon}
               </ListItemIcon>
               <ListItemText primary={name} sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>

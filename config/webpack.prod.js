@@ -17,6 +17,7 @@ const prodConfig = {
       remotes: {
         todo: `myva_todo@${domain}/myva_todo/latest/remoteEntry.js`,
         cricket: `myva_cricket@${domain}/myva_cricket/latest/remoteEntry.js`,
+        auth: `myva_auth${domain}/myva_auth/latest/remoteEntry.js`,
       },
       shared: packageJson.dependencies,
     }),

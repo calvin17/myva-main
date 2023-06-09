@@ -5,6 +5,9 @@ const packageJson = require('../package.json');
 
 const devConfig = {
   mode: 'development',
+  output: {
+    publicPath: 'http://localhost:8080/',
+  },
   devServer: {
     port: 8080,
     historyApiFallback: {
@@ -17,6 +20,7 @@ const devConfig = {
       remotes: {
         todo: 'myva_todo@http://localhost:8082/remoteEntry.js',
         cricket: 'myva_cricket@http://localhost:8083/remoteEntry.js',
+        auth: 'myva_auth@http://localhost:8084/remoteEntry.js',
       },
       shared: packageJson.dependencies,
     }),
