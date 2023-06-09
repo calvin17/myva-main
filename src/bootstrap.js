@@ -1,7 +1,7 @@
-import { mount as todoMount } from 'todo/TodoIndex';
-import { mount as cricketMount } from 'cricket/CricketIndex';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App';
 
-console.log('Container!');
+const root = createRoot(document.getElementById('root'));
 
-todoMount(document.querySelector('#root-todo'));
-cricketMount(document.querySelector('#root-cricket'));
+root.render(<App />);
