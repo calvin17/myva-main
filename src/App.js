@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
+import GlobalStyles from '@mui/material/GlobalStyles';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { purple } from '@mui/material/colors';
 
@@ -39,7 +40,11 @@ export default () => {
         <BrowserRouter>
           <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-
+            <GlobalStyles
+              styles={{
+                body: { backgroundColor: '#f5f5f9' },
+              }}
+            />
             {/* <TodoApp />
             <CricketApp /> */}
             <Suspense fallback={<Progress />}>
