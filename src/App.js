@@ -22,7 +22,7 @@ const theme = createTheme({
 });
 
 const TodoAppLazy = lazy(() => import('todo/TodoIndex'));
-const CricketAppLazy = lazy(() => import('./components/CricketApp'));
+const CricketAppLazy = lazy(() => import('cricket/CricketIndex'));
 const AuthLazy = lazy(() => import('auth/AuthIndex'));
 
 const onSignIn = (signIn) => {
