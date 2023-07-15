@@ -53,7 +53,7 @@ export default () => {
                   <Route index element={<>Dashboard</>} />
                   <Route path="/auth/*" element={<AuthLazy onSignIn={onSignIn} />} />
                   <Route path="/todo/*" element={<TodoAppLazy />} />
-                  <Route path="cricket" element={<CricketAppLazy />} />
+                  <Route path="/cricket/*" element={<CricketAppLazy />} />
                   <Route path="*" element={<>No Match Route path</>} />
                 </Route>
               </Routes>
