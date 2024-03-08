@@ -1,9 +1,9 @@
-name: deploy-container
+name: deploy-myva-container
 
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - '**'
 
