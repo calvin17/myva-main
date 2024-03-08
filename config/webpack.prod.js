@@ -10,7 +10,6 @@ const prodConfig = {
   mode: 'production',
   output: {
     filename: '[name].[contenthash].js',
-    path: path.resolve(__dirname, 'dist'),
   },
   plugins: [
     new ModuleFederationPlugin({
