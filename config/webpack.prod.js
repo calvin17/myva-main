@@ -1,7 +1,7 @@
 const { merge } = require('webpack-merge');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const commonConfig = require('./webpack.common');
-const packageJson = require('./package.json');
+const packageJson = require('../package.json');
 const path = require('path');
 
 const domain = process.env.PRODUCTION_DOMAIN;
@@ -16,9 +16,9 @@ const prodConfig = {
     new ModuleFederationPlugin({
       name: 'myva_container',
       remotes: {
-        todo: `https://myva-6cb84.web.app/myva_todo/latest/remoteEntry.js`,
-        cricket: `https://myva-6cb84.web.app/myva_cricket/latest/remoteEntry.js`,
-        auth: `https://myva-6cb84.web.app/myva_auth/latest/remoteEntry.js`,
+        todo: `myva_todo@${domain}/myva_todo/latest/remoteEntry.js`,
+        cricket: `myva_cricket@${domain}/myva_cricket/latest/remoteEntry.js`,
+        auth: `myva_auth@${domain}/myva_auth/latest/remoteEntry.js`,
       },
       shared: packageJson.dependencies,
     }),
