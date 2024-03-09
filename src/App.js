@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, createBrowserRouter, RouterProvider } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import GlobalStyles from '@mui/material/GlobalStyles';
@@ -34,21 +34,51 @@ const onSignIn = (signIn) => {
 };
 
 export default () => {
+  const appRouter = createBrowserRouter([
+    {
+      path: '/',
+      element: <Layout />,
+      children: [
+        {
+          path: '/',
+          element: <>Dashboard</>,
+        },
+        {
+          path: '/auth/*',
+          element: <AuthLazy onSignIn={onSignIn} />,
+        },
+        {
+          path: '/todo/*',
+          element: <TodoAppLazy />,
+        },
+        {
+          path: '/cricket/*',
+          element: <CricketAppLazy />,
+        },
+        {
+          path: '*',
+          element: <>No Match Route path</>,
+        },
+      ],
+    },
+  ]);
+
   return (
     <React.Fragment>
       <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
-            <GlobalStyles
-              styles={{
-                body: { backgroundColor: '#f5f5f9' },
-              }}
-            />
-            {/* <TodoApp />
+        {/* <BrowserRouter> */}
+        <Box sx={{ display: 'flex' }}>
+          <CssBaseline />
+          <GlobalStyles
+            styles={{
+              body: { backgroundColor: '#f5f5f9' },
+            }}
+          />
+          {/* <TodoApp />
             <CricketApp /> */}
-            <Suspense fallback={<Progress />}>
-              <Routes>
+          <Suspense fallback={<Progress />}>
+            <RouterProvider router={appRouter} />
+            {/* <Routes>
                 <Route path="/" element={<Layout />}>
                   <Route index element={<>Dashboard</>} />
                   <Route path="/auth/*" element={<AuthLazy onSignIn={onSignIn} />} />
@@ -56,10 +86,10 @@ export default () => {
                   <Route path="/cricket/*" element={<CricketAppLazy />} />
                   <Route path="*" element={<>No Match Route path</>} />
                 </Route>
-              </Routes>
-            </Suspense>
-          </Box>
-        </BrowserRouter>
+              </Routes> */}
+          </Suspense>
+        </Box>
+        {/* </BrowserRouter> */}
       </ThemeProvider>
     </React.Fragment>
   );
