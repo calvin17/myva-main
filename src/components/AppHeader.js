@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MuiAppBar from '@mui/material/AppBar';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -33,9 +34,9 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 export default function AppHeader({ open, setOpen, toggleDrawer }) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const navigate = useNavigate();
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -50,6 +51,12 @@ export default function AppHeader({ open, setOpen, toggleDrawer }) {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
+  };
+
+  const handleSignOut = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+    navigate('auth/signin');
   };
 
   const handleMobileMenuOpen = (event) => {
@@ -74,7 +81,7 @@ export default function AppHeader({ open, setOpen, toggleDrawer }) {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose} component={Link} to="/auth/signin">
+      <MenuItem onClick={handleSignOut} component={Link} to="/auth/signin">
         Sign Out
       </MenuItem>
     </Menu>

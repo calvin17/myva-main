@@ -1,12 +1,14 @@
 import React, { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route, createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { purple } from '@mui/material/colors';
+import { auth } from './utils/firebase';
+import appStore from './store/appStore';
 
-// import TodoApp from './components/TodoApp';
 import Progress from './components/Progress';
 import Layout from './components/Layout';
 
@@ -45,7 +47,7 @@ export default () => {
         },
         {
           path: '/auth/*',
-          element: <AuthLazy onSignIn={onSignIn} />,
+          element: <AuthLazy onSignIn={onSignIn} auth={auth} />,
         },
         {
           path: '/todo/*',
@@ -65,32 +67,21 @@ export default () => {
 
   return (
     <React.Fragment>
-      <ThemeProvider theme={theme}>
-        {/* <BrowserRouter> */}
-        <Box sx={{ display: 'flex' }}>
-          <CssBaseline />
-          <GlobalStyles
-            styles={{
-              body: { backgroundColor: '#f5f5f9' },
-            }}
-          />
-          {/* <TodoApp />
-            <CricketApp /> */}
-          <Suspense fallback={<Progress />}>
-            <RouterProvider router={appRouter} />
-            {/* <Routes>
-                <Route path="/" element={<Layout />}>
-                  <Route index element={<>Dashboard</>} />
-                  <Route path="/auth/*" element={<AuthLazy onSignIn={onSignIn} />} />
-                  <Route path="/todo/*" element={<TodoAppLazy />} />
-                  <Route path="/cricket/*" element={<CricketAppLazy />} />
-                  <Route path="*" element={<>No Match Route path</>} />
-                </Route>
-              </Routes> */}
-          </Suspense>
-        </Box>
-        {/* </BrowserRouter> */}
-      </ThemeProvider>
+      <Provider store={appStore}>
+        <ThemeProvider theme={theme}>
+          <Box sx={{ display: 'flex' }}>
+            <CssBaseline />
+            <GlobalStyles
+              styles={{
+                body: { backgroundColor: '#f5f5f9' },
+              }}
+            />
+            <Suspense fallback={<Progress />}>
+              <RouterProvider router={appRouter} />
+            </Suspense>
+          </Box>
+        </ThemeProvider>
+      </Provider>
     </React.Fragment>
   );
 };
