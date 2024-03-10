@@ -14,6 +14,17 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 100000, // Convert images < 100kb to base64 strings
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [

@@ -14,6 +14,7 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Avatar from '@mui/material/Avatar';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import myvaLogo from '../images/myva-logo.png';
 import { auth } from '../utils/firebase';
 
 const drawerWidth = 240;
@@ -147,15 +148,9 @@ export default function AppHeader({ open, setOpen, toggleDrawer }) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            sx={{ display: { xs: 'none', sm: 'block' }, textDecoration: 'none' }}
-            component={Link}
-            to="/"
-          >
-            MyVA
-          </Typography>
+          <Link to="/">
+            <img src={myvaLogo} alt="logo" style={{ maxWidth: '150px' }} />
+          </Link>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton

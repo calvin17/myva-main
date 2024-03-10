@@ -31,6 +31,7 @@ export default ({ user, loading, setLoading }) => {
       if (user) {
         const { uid, email, displayName, photoURL } = user;
         dispatch(addUser({ uid: uid, email: email, displayName: displayName, photoURL: photoURL }));
+        console.log('in side onAuthStateChanged');
         navigate('/');
         setLoading(false);
       } else {
@@ -51,7 +52,7 @@ export default ({ user, loading, setLoading }) => {
           <SideNavbar open={open} setOpen={setOpen} toggleDrawer={toggleDrawer} />
         </>
       )}
-      <Box component="main" sx={{ flexGrow: 1 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         {!loading && !(authRoutes.indexOf(`${location.pathname}`) > -1) && <DrawerHeader />}
         <Outlet />
       </Box>
