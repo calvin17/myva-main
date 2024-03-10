@@ -1,5 +1,5 @@
-import React, { useState, lazy, Suspense } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import React, { useState, lazy, Suspense, useEffect } from 'react';
+import { Navigate, createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
@@ -31,18 +31,24 @@ const ETAppLazy = lazy(() => import('et/ETIndex'));
 
 export default () => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
   const updateUser = (user) => {
     setUser(user);
   };
 
+  const rootLoader = async () => {};
+
   const appRouter = createBrowserRouter([
     {
       path: '/',
-      element: <Layout user={user} />,
+      element: <Layout user={user} loading={loading} setLoading={setLoading} />,
+      loader: () => 'load',
       children: [
         {
           path: '/',
-          element: <DashboardLazy />,
+          element: <DashboardLazy loading={loading} />,
+          // element: user && !loading ? <DashboardLazy /> : <Navigate replace to={'/auth/signin'} />,
         },
         {
           path: '/auth/*',
@@ -68,19 +74,21 @@ export default () => {
     },
   ]);
 
+  console.log('loading', loading);
   return (
     <React.Fragment>
       <Provider store={appStore}>
         <ThemeProvider theme={theme}>
-          <Box sx={{ display: 'flex' }}>
+          <Box>
             <CssBaseline />
             <GlobalStyles
               styles={{
                 body: { backgroundColor: '#f5f5f9' },
               }}
             />
+            {loading && <Progress />}
             <Suspense fallback={<Progress />}>
-              <RouterProvider router={appRouter} />
+              <RouterProvider router={appRouter} fallbackElement={<Progress />} />
             </Suspense>
           </Box>
         </ThemeProvider>
