@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { signOut } from 'firebase/auth';
 import MuiAppBar from '@mui/material/AppBar';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -9,9 +12,9 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
+import Avatar from '@mui/material/Avatar';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { Link } from 'react-router-dom';
+import { auth } from '../utils/firebase';
 
 const drawerWidth = 240;
 
@@ -37,6 +40,7 @@ export default function AppHeader({ open, setOpen, toggleDrawer }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const navigate = useNavigate();
+  const user = useSelector((store) => store.user);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -56,7 +60,14 @@ export default function AppHeader({ open, setOpen, toggleDrawer }) {
   const handleSignOut = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
-    navigate('auth/signin');
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        navigate('auth/signin');
+      })
+      .catch((error) => {
+        navigate('/error');
+      });
   };
 
   const handleMobileMenuOpen = (event) => {
@@ -112,7 +123,7 @@ export default function AppHeader({ open, setOpen, toggleDrawer }) {
           aria-haspopup="true"
           color="inherit"
         >
-          <AccountCircle />
+          <Avatar alt="Profile Image" src={user?.photoURL} sx={{ width: 46, height: 46 }} />
         </IconButton>
         <p>Profile</p>
       </MenuItem>
@@ -139,7 +150,7 @@ export default function AppHeader({ open, setOpen, toggleDrawer }) {
           <Typography
             variant="h6"
             noWrap
-            sx={{ display: { xs: 'none', sm: 'block' }, textDecoration: 'none', color: 'white' }}
+            sx={{ display: { xs: 'none', sm: 'block' }, textDecoration: 'none' }}
             component={Link}
             to="/"
           >
@@ -156,7 +167,7 @@ export default function AppHeader({ open, setOpen, toggleDrawer }) {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <Avatar alt="Profile image" src={user?.photoURL} sx={{ width: 46, height: 46 }} />
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { onAuthStateChanged } from 'firebase/auth';
 import Box from '@mui/material/Box';
@@ -10,9 +10,10 @@ import { addUser, removeUser } from '../store/userSlice';
 import AppHeader from './AppHeader';
 import SideNavbar, { DrawerHeader } from './SideNavbar';
 
-export default () => {
+export default ({ user }) => {
   const [open, setOpen] = React.useState(true);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   let authRoutes = ['/auth/signin', '/auth/signup'];
   let location = useLocation();
   const toggleDrawer = () => {
@@ -20,12 +21,18 @@ export default () => {
   };
 
   useEffect(() => {
+    dispatch(addUser(user));
+  }, [user]);
+
+  useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        const { uid, email, displayName } = user;
-        dispatch(addUser({ uid, email, displayName }));
+        const { uid, email, displayName, photoURL } = user;
+        dispatch(addUser({ uid: uid, email: email, displayName: displayName, photoURL: photoURL }));
+        navigate('/');
       } else {
         dispatch(removeUser());
+        navigate('/auth/signin');
       }
     });
   }, []);

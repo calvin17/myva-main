@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -27,19 +27,16 @@ const TodoAppLazy = lazy(() => import('todo/TodoIndex'));
 const CricketAppLazy = lazy(() => import('cricket/CricketIndex'));
 const AuthLazy = lazy(() => import('auth/AuthIndex'));
 
-const onSignIn = (signIn) => {
-  if (signIn) {
-    console.log('User Sign In');
-  } else {
-    console.log('User not Sign In');
-  }
-};
-
 export default () => {
+  const [user, setUser] = useState(null);
+  const updateUser = (user) => {
+    setUser(user);
+  };
+
   const appRouter = createBrowserRouter([
     {
       path: '/',
-      element: <Layout />,
+      element: <Layout user={user} />,
       children: [
         {
           path: '/',
@@ -47,7 +44,7 @@ export default () => {
         },
         {
           path: '/auth/*',
-          element: <AuthLazy onSignIn={onSignIn} auth={auth} />,
+          element: <AuthLazy updateUser={(user) => updateUser(user)} auth={auth} />,
         },
         {
           path: '/todo/*',
