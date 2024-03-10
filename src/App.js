@@ -27,6 +27,7 @@ const DashboardLazy = lazy(() => import('dashboard/DashboardIndex'));
 const TodoAppLazy = lazy(() => import('todo/TodoIndex'));
 const CricketAppLazy = lazy(() => import('cricket/CricketIndex'));
 const AuthLazy = lazy(() => import('auth/AuthIndex'));
+const ETAppLazy = lazy(() => import('et/ETIndex'));
 
 export default () => {
   const [user, setUser] = useState(null);
@@ -54,6 +55,10 @@ export default () => {
         {
           path: '/cricket/*',
           element: <CricketAppLazy />,
+        },
+        {
+          path: '/expanseTracker/*',
+          element: <ETAppLazy />,
         },
         {
           path: '*',
