@@ -21,6 +21,7 @@ const devConfig = {
         todo: 'myva_todo@http://localhost:8082/remoteEntry.js',
         cricket: 'myva_cricket@http://localhost:8083/remoteEntry.js',
         auth: 'myva_auth@http://localhost:8084/remoteEntry.js',
+        dashboard: 'myva_dashboard@http://localhost:8087/remoteEntry.js',
       },
       shared: packageJson.dependencies,
     }),

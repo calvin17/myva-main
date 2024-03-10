@@ -23,6 +23,7 @@ const theme = createTheme({
   },
 });
 
+const DashboardLazy = lazy(() => import('dashboard/DashboardIndex'));
 const TodoAppLazy = lazy(() => import('todo/TodoIndex'));
 const CricketAppLazy = lazy(() => import('cricket/CricketIndex'));
 const AuthLazy = lazy(() => import('auth/AuthIndex'));
@@ -40,7 +41,7 @@ export default () => {
       children: [
         {
           path: '/',
-          element: <>Dashboard</>,
+          element: <DashboardLazy />,
         },
         {
           path: '/auth/*',
