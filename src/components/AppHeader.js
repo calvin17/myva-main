@@ -133,7 +133,7 @@ export default function AppHeader({ open, setOpen, toggleDrawer }) {
 
   return (
     <>
-      <AppBar position="absolute" open={open} sx={{ bgcolor: '#ffffff', color: '#4e73df' }}>
+      <AppBar position="fixed" open={open} sx={{ bgcolor: '#ffffff', color: '#4e73df' }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -142,7 +142,7 @@ export default function AppHeader({ open, setOpen, toggleDrawer }) {
             aria-label="open drawer"
             onClick={toggleDrawer}
             sx={{
-              mr: 2,
+              mr: 5,
               ...(open && { display: 'none' }),
             }}
           >

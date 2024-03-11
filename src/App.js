@@ -86,7 +86,7 @@ export default () => {
                 body: { backgroundColor: '#f5f5f9' },
               }}
             />
-            {loading && <Progress />}
+            {/* {loading && <Progress />} */}
             <Suspense fallback={<Progress />}>
               <RouterProvider router={appRouter} fallbackElement={<Progress />} />
             </Suspense>

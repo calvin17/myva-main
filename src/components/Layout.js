@@ -45,17 +45,17 @@ export default ({ user, loading, setLoading }) => {
   }, []);
 
   return (
-    <>
+    <Box sx={{ display: 'flex' }}>
       {!loading && !(authRoutes.indexOf(`${location.pathname}`) > -1) && (
         <>
           <AppHeader open={open} setOpen={setOpen} toggleDrawer={toggleDrawer} />
           <SideNavbar open={open} setOpen={setOpen} toggleDrawer={toggleDrawer} />
         </>
       )}
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1 }}>
         {!loading && !(authRoutes.indexOf(`${location.pathname}`) > -1) && <DrawerHeader />}
         <Outlet />
       </Box>
-    </>
+    </Box>
   );
 };
