@@ -52,7 +52,7 @@ export default ({ user, loading, setLoading }) => {
           <SideNavbar open={open} setOpen={setOpen} toggleDrawer={toggleDrawer} />
         </>
       )}
-      <Box component="main" sx={{ flexGrow: 1 }}>
+      <Box component="main" sx={{ flexGrow: 1, mt: '10px' }}>
         {!loading && !(authRoutes.indexOf(`${location.pathname}`) > -1) && <DrawerHeader />}
         <Outlet />
       </Box>
