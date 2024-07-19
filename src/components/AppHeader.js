@@ -92,7 +92,8 @@ export default function AppHeader({ open, setOpen, toggleDrawer }) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose}><Link to="/profile">Profile</Link></MenuItem>
+      <MenuItem onClick={handleMenuClose}><Link to="/admin">Admin</Link></MenuItem>
       <MenuItem onClick={handleSignOut} component={Link} to="/auth/signin">
         Sign Out
       </MenuItem>

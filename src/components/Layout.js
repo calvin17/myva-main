@@ -32,7 +32,7 @@ export default ({ user, loading, setLoading }) => {
         const { uid, email, displayName, photoURL } = user;
         dispatch(addUser({ uid: uid, email: email, displayName: displayName, photoURL: photoURL }));
         console.log('in side onAuthStateChanged');
-        navigate('/');
+        // navigate('/');
         setLoading(false);
       } else {
         dispatch(removeUser());
