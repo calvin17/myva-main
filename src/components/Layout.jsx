@@ -7,9 +7,9 @@ import { auth } from '../utils/firebase';
 
 import { addUser, removeUser } from '../store/userSlice';
 
-import AppHeader from './AppHeader';
-import SideNavbar, { DrawerHeader } from './SideNavbar';
-import Progress from './Progress';
+import AppHeader from './AppHeader.jsx';
+import SideNavbar, { DrawerHeader } from './SideNavbar.jsx';
+import Progress from './Progress.jsx';
 
 export default ({ user, loading, setLoading }) => {
   const [open, setOpen] = useState(true);
@@ -36,7 +36,7 @@ export default ({ user, loading, setLoading }) => {
         setLoading(false);
       } else {
         dispatch(removeUser());
-        navigate('/auth/signin');
+        // navigate('/auth/signin'); // Disabled for development
         setLoading(false);
       }
     });

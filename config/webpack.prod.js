@@ -1,3 +1,4 @@
+// This file is obsolete. Vite is now used for builds.
 const { merge } = require('webpack-merge');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const commonConfig = require('./webpack.common');

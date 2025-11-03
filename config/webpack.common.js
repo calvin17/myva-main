@@ -1,3 +1,4 @@
+// This file is obsolete. Vite is now used for builds.
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {

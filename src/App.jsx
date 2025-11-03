@@ -9,8 +9,8 @@ import { purple } from '@mui/material/colors';
 import { auth } from './utils/firebase';
 import appStore from './store/appStore';
 
-import Progress from './components/Progress';
-import Layout from './components/Layout';
+import Progress from './components/Progress.jsx';
+import Layout from './components/Layout.jsx';
 
 const theme = createTheme({
   palette: {
@@ -23,10 +23,16 @@ const theme = createTheme({
   },
 });
 
-const DashboardLazy = lazy(() => import('dashboard/DashboardIndex'));
+const DashboardLazy = lazy(() => {
+  console.log('Attempting to load dashboard from:', 'http://localhost:8087/assets/remoteEntry.js');
+  return import('dashboard/DashboardIndex').catch(err => {
+    console.error('Failed to load dashboard:', err);
+    throw err;
+  });
+});
 const TodoAppLazy = lazy(() => import('todo/TodoIndex'));
 const CricketAppLazy = lazy(() => import('cricket/CricketIndex'));
-const AuthLazy = lazy(() => import('auth/AuthIndex'));
+const AuthLazy = lazy(() => import('auth/AuthApp'));
 const ETAppLazy = lazy(() => import('et/ETIndex'));
 
 export default () => {
@@ -48,7 +54,6 @@ export default () => {
         {
           path: '/',
           element: <DashboardLazy loading={loading} />,
-          // element: user && !loading ? <DashboardLazy /> : <Navigate replace to={'/auth/signin'} />,
         },
         {
           path: '/auth/*',
